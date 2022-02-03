@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: dev
+      WORDPRESS_DB_PASSWORD: devpass
+      WORDPRESS_DB_NAME: wp_dev
+    volumes:
+      - ./wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wp_dev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: devpass
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - ./db:/var/lib/mysql
